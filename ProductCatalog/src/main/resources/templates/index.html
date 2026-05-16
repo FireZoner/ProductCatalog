@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Каталог товаров и обратная связь</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 24px 48px;
+        }
+
+        main {
+            max-width: 960px;
+            margin: 48px auto;
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .actions {
+            margin-top: 32px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button.secondary {
+            background: #4b5563;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <strong>Курсовая работа Java</strong>
+</header>
+
+<main>
+    <h1 th:text="${pageTitle}">Каталог товаров и обратная связь</h1>
+
+    <p>
+        Это стартовая страница веб-сервиса. Позже здесь появятся:
+        каталог товаров, регистрация пользователей, форма обратной связи
+        и история обращений.
+    </p>
+
+    <p>
+        Проект разрабатывается как веб-приложение на Java 21 и Spring Boot.
+    </p>
+
+    <div class="actions">
+        <a class="button" href="#">Каталог товаров</a>
+        <a class="button secondary" href="#">Войти</a>
+    </div>
+</main>
+
+</body>
+</html>

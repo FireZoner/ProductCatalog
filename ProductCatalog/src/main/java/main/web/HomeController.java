@@ -1,0 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package main.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ *
+ * @author zubbo
+ */
+@Controller
+public class HomeController {
+    @GetMapping("/")
+    public String showHomePage(Model model) {
+        model.addAttribute("pageTitle", "Каталог товаров и обратная связь");
+        return "index";
+    }
+}
