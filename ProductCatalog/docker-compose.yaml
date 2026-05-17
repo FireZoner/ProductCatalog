@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: catalog_feedback_postgres
+    environment:
+      POSTGRES_DB: catalog_feedback_db
+      POSTGRES_USER: catalog_user
+      POSTGRES_PASSWORD: catalog_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - catalog_feedback_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  catalog_feedback_postgres_data:

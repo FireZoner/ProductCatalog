@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.23.xsd">
+
+    <changeSet id="005-insert-demo-products" author="stepan">
+        <insert tableName="products">
+            <column name="title" value="Ноутбук TechBook Pro 14"/>
+            <column name="description" value="Компактный ноутбук для учебы, работы и повседневных задач. Подходит для программирования, работы с документами и видеозвонков."/>
+            <column name="price" valueNumeric="89990.00"/>
+            <column name="image_url" value="https://placehold.co/600x400?text=TechBook+Pro+14"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="products">
+            <column name="title" value="Смартфон NovaPhone X"/>
+            <column name="description" value="Смартфон с ярким экраном, хорошей камерой и емким аккумулятором. Подходит для общения, фото и просмотра контента."/>
+            <column name="price" valueNumeric="54990.00"/>
+            <column name="image_url" value="https://placehold.co/600x400?text=NovaPhone+X"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="products">
+            <column name="title" value="Беспроводные наушники SoundAir"/>
+            <column name="description" value="Легкие беспроводные наушники с шумоподавлением и длительным временем работы от аккумулятора."/>
+            <column name="price" valueNumeric="12990.00"/>
+            <column name="image_url" value="https://placehold.co/600x400?text=SoundAir"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+
+        <insert tableName="products">
+            <column name="title" value="Монитор ViewMax 27"/>
+            <column name="description" value="Большой 27-дюймовый монитор для работы, учебы и мультимедиа. Удобен для программирования и работы с несколькими окнами."/>
+            <column name="price" valueNumeric="24990.00"/>
+            <column name="image_url" value="https://placehold.co/600x400?text=ViewMax+27"/>
+            <column name="available" valueBoolean="true"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

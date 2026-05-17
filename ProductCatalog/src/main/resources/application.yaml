@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: catalog-feedback-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/catalog_feedback_db
+    username: postgres
+    password: GjlYjvth999
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+server:
+  port: 8080
