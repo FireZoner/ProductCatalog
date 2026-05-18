@@ -36,12 +36,14 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/",
-                                "/login",
-                                "/register",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**"
+                            "/",
+                            "/login",
+                            "/register",
+                            "/products",
+                            "/products/**",
+                            "/css/**",
+                            "/js/**",
+                            "/images/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

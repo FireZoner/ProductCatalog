@@ -5,7 +5,7 @@
 package main.feedback;
 
 import jakarta.persistence.*;
-import main.product.Product;
+import main.product.domain.Product;
 import main.user.domain.AppUser;
 
 import java.time.LocalDateTime;
