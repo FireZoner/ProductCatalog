@@ -16,6 +16,9 @@
             background: #1f2937;
             color: white;
             padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         main {
@@ -45,10 +48,26 @@
             color: white;
             text-decoration: none;
             font-weight: bold;
+            border: none;
+            cursor: pointer;
         }
 
         .button.secondary {
             background: #4b5563;
+        }
+
+        .button.danger {
+            background: #dc2626;
+        }
+
+        .auth-panel {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .auth-panel form {
+            margin: 0;
         }
     </style>
 </head>
@@ -56,24 +75,36 @@
 
 <header>
     <strong>Курсовая работа Java</strong>
+
+    <div class="auth-panel">
+        <div th:if="${isAuthenticated}">
+            <form method="post" action="/logout">
+                <button class="button danger" type="submit">Выйти</button>
+            </form>
+        </div>
+
+        <div th:unless="${isAuthenticated}">
+            <a class="button secondary" href="/login">Войти</a>
+            <a class="button" href="/register">Регистрация</a>
+        </div>
+    </div>
 </header>
 
 <main>
     <h1 th:text="${pageTitle}">Каталог товаров и обратная связь</h1>
 
     <p>
-        Это стартовая страница веб-сервиса. Позже здесь появятся:
-        каталог товаров, регистрация пользователей, форма обратной связи
-        и история обращений.
+        Это веб-сервис для просмотра каталога товаров и отправки обращений администратору.
     </p>
 
     <p>
-        Проект разрабатывается как веб-приложение на Java 21 и Spring Boot.
+        Сейчас реализованы базовая структура проекта, подключение к PostgreSQL,
+        миграции базы данных, регистрация и аутентификация пользователей.
     </p>
 
     <div class="actions">
         <a class="button" href="#">Каталог товаров</a>
-        <a class="button secondary" href="#">Войти</a>
+        <a class="button secondary" href="#">Обратная связь</a>
     </div>
 </main>
 

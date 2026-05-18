@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            color: #222;
+        }
+
+        main {
+            max-width: 460px;
+            margin: 80px auto;
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .field-error {
+            margin-top: 6px;
+            color: #991b1b;
+            font-size: 14px;
+        }
+
+        .message-error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1>Регистрация</h1>
+
+    <div class="message-error" th:if="${registrationError}" th:text="${registrationError}">
+        Ошибка регистрации
+    </div>
+
+    <form method="post" th:action="@{/register}" th:object="${registerUserRequest}">
+        <label for="fullName">Имя</label>
+        <input id="fullName" type="text" th:field="*{fullName}" required>
+        <div class="field-error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" th:field="*{email}" required>
+        <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+        <label for="password">Пароль</label>
+        <input id="password" type="password" th:field="*{password}" required>
+        <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <div class="links">
+        <a href="/">На главную</a>
+        <a href="/login">Уже есть аккаунт</a>
+    </div>
+</main>
+
+</body>
+</html>

@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package feedback;
+package main.feedback;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import user.AppUser;
+import main.user.domain.AppUser;
 
 import java.util.List;
 

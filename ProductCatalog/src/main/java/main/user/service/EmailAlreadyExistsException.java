@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package user;
+package main.user.service;
 
 /**
  *
  * @author zubbo
  */
-public enum UserRole {
-    USER,
-    ADMIN
+public class EmailAlreadyExistsException extends RuntimeException {
+
+    public EmailAlreadyExistsException(String message) {
+        super(message);
+    }
 }
