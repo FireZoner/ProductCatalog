@@ -93,7 +93,9 @@
                 <span th:text="${product.price}">0.00</span> ₽
             </div>
 
-            <a class="button" href="#">Написать администратору</a>
+            <a class="button" th:href="@{/feedback(productId=${product.id})}">
+                Написать администратору
+            </a>
             <a class="button secondary" href="/products">К каталогу</a>
         </div>
     </section>

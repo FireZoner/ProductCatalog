@@ -1,6 +1,6 @@
 spring:
   application:
-    name: catalog-feedback-service
+    name: ProductCatalog
 
   datasource:
     url: jdbc:postgresql://localhost:5432/catalog_feedback_db
@@ -19,5 +19,21 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
+  mail:
+    host: localhost
+    port: 1025
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
 server:
   port: 8080
+
+app:
+  feedback:
+    admin-email: admin@example.com

@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package main.notification;
+package main.notification.domain;
 
 import jakarta.persistence.*;
-import main.feedback.FeedbackRequest;
+import main.feedback.domain.FeedbackRequest;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

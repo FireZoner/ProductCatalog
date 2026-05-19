@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Обратная связь</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 40px auto;
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .header-link {
+            color: white;
+        }
+
+        .product-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .button.secondary {
+            background: #4b5563;
+        }
+
+        .field-error {
+            margin-top: 6px;
+            color: #991b1b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <strong>Обратная связь</strong>
+    <a class="header-link" href="/products">К каталогу</a>
+</header>
+
+<main>
+    <h1>Написать администратору</h1>
+
+    <div class="product-box" th:if="${product != null}">
+        <strong>Обращение по товару:</strong>
+        <span th:text="${product.title}">Название товара</span>
+    </div>
+
+    <form method="post" th:action="@{/feedback}" th:object="${feedbackRequest}">
+        <input type="hidden" th:field="*{productId}">
+
+        <label for="contactName">Ваше имя</label>
+        <input id="contactName" type="text" th:field="*{contactName}" required>
+        <div class="field-error" th:if="${#fields.hasErrors('contactName')}" th:errors="*{contactName}"></div>
+
+        <label for="contactPhone">Телефон</label>
+        <input id="contactPhone" type="text" th:field="*{contactPhone}" required>
+        <div class="field-error" th:if="${#fields.hasErrors('contactPhone')}" th:errors="*{contactPhone}"></div>
+
+        <label for="contactEmail">Email</label>
+        <input id="contactEmail" type="email" th:field="*{contactEmail}" required>
+        <div class="field-error" th:if="${#fields.hasErrors('contactEmail')}" th:errors="*{contactEmail}"></div>
+
+        <label for="messageText">Сообщение</label>
+        <textarea id="messageText" th:field="*{messageText}" required></textarea>
+        <div class="field-error" th:if="${#fields.hasErrors('messageText')}" th:errors="*{messageText}"></div>
+
+        <button class="button" type="submit">Отправить</button>
+        <a class="button secondary" href="/products">Отмена</a>
+    </form>
+</main>
+
+</body>
+</html>
