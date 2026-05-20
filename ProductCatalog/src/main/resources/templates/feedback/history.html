@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>История обращений</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .header-link {
+            color: white;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-processing {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-sent {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .meta {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .message {
+            margin-top: 16px;
+            white-space: pre-line;
+        }
+
+        .empty {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <strong>История обращений</strong>
+    <a class="header-link" href="/">На главную</a>
+</header>
+
+<main>
+    <h1>Мои обращения</h1>
+
+    <section th:if="${feedbackRequests.isEmpty()}" class="empty">
+        <h2>Обращений пока нет</h2>
+        <p>Вы ещё не отправляли сообщения администратору.</p>
+        <a class="button" href="/products">Перейти в каталог</a>
+    </section>
+
+    <section th:if="${!feedbackRequests.isEmpty()}">
+        <article class="card" th:each="request : ${feedbackRequests}">
+            <span
+                    class="status"
+                    th:classappend="${request.status.name() == 'PROCESSING'} ? ' status-processing' :
+                                    (${request.status.name() == 'SENT'} ? ' status-sent' : ' status-error')"
+                    th:text="${request.status.name() == 'PROCESSING'} ? 'Выполняется' :
+                             (${request.status.name() == 'SENT'} ? 'Успешно отправлено' : 'Ошибка')">
+                Статус
+            </span>
+
+            <div class="meta">
+                Создано:
+                <span th:text="${#temporals.format(request.createdAt, 'dd.MM.yyyy HH:mm')}">
+                    01.01.2026 12:00
+                </span>
+            </div>
+
+            <div class="meta" th:if="${request.product != null}">
+                Товар:
+                <span th:text="${request.product.title}">Название товара</span>
+            </div>
+
+            <div class="meta">
+                Контакты:
+                <span th:text="${request.contactName}">Имя</span>,
+                <span th:text="${request.contactPhone}">Телефон</span>,
+                <span th:text="${request.contactEmail}">Email</span>
+            </div>
+
+            <div class="message" th:text="${request.messageText}">
+                Текст обращения
+            </div>
+
+            <div class="meta" th:if="${request.errorMessage != null}">
+                Ошибка отправки email:
+                <span th:text="${request.errorMessage}">Ошибка</span>
+            </div>
+        </article>
+    </section>
+</main>
+
+</body>
+</html>

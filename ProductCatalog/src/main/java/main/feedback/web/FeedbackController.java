@@ -9,11 +9,13 @@ import main.feedback.domain.FeedbackRequest;
 import main.feedback.service.FeedbackService;
 import main.product.domain.Product;
 import main.product.service.ProductService;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 /**
  *
@@ -45,6 +47,19 @@ public class FeedbackController {
         addFormAttributes(model, request, productId);
 
         return "feedback/form";
+    }
+    
+    @GetMapping("/history")
+    public String showFeedbackHistory(
+            Authentication authentication,
+            Model model
+    ) {
+        List<FeedbackRequest> feedbackRequests =
+                feedbackService.findCurrentUserFeedbackRequests(authentication.getName());
+
+        model.addAttribute("feedbackRequests", feedbackRequests);
+
+        return "feedback/history";
     }
 
     @PostMapping

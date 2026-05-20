@@ -14,9 +14,11 @@ import main.product.domain.Product;
 import main.product.domain.ProductRepository;
 import main.user.domain.AppUser;
 import main.user.domain.AppUserRepository;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 /**
  *
@@ -132,5 +134,13 @@ public class FeedbackService {
                 .append(feedbackRequest.getMessageText());
 
         return body.toString();
+    }
+    
+    @Transactional(readOnly = true)
+    public List<FeedbackRequest> findCurrentUserFeedbackRequests(String userEmail) {
+        AppUser user = appUserRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
+
+        return feedbackRequestRepository.findByUserOrderByCreatedAtDesc(user);
     }
 }

@@ -88,6 +88,7 @@
     </div>
 
     <form method="post" th:action="@{/register}" th:object="${registerUserRequest}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <label for="fullName">Имя</label>
         <input id="fullName" type="text" th:field="*{fullName}" required>
         <div class="field-error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
