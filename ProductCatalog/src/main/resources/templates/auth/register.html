@@ -52,6 +52,28 @@
             cursor: pointer;
         }
 
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 50px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 6px;
+            width: auto;
+            margin-top: 0;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: #4b5563;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
         .field-error {
             margin-top: 6px;
             color: #991b1b;
@@ -87,19 +109,56 @@
         Ошибка регистрации
     </div>
 
-    <form method="post" th:action="@{/register}" th:object="${registerUserRequest}">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <form method="post"
+          th:action="@{/register}"
+          th:object="${registerUserRequest}"
+          autocomplete="off">
+
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+
         <label for="fullName">Имя</label>
-        <input id="fullName" type="text" th:field="*{fullName}" required>
-        <div class="field-error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+        <input id="fullName"
+               type="text"
+               th:field="*{fullName}"
+               autocomplete="off"
+               required>
+        <div class="field-error"
+             th:if="${#fields.hasErrors('fullName')}"
+             th:errors="*{fullName}">
+        </div>
 
         <label for="email">Email</label>
-        <input id="email" type="email" th:field="*{email}" required>
-        <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        <input id="email"
+               type="email"
+               th:field="*{email}"
+               autocomplete="off"
+               required>
+        <div class="field-error"
+             th:if="${#fields.hasErrors('email')}"
+             th:errors="*{email}">
+        </div>
 
         <label for="password">Пароль</label>
-        <input id="password" type="password" th:field="*{password}" required>
-        <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        <div class="password-wrapper">
+            <input id="password"
+                   type="password"
+                   th:field="*{password}"
+                   autocomplete="new-password"
+                   required>
+
+            <button
+                    type="button"
+                    class="toggle-password"
+                    onclick="togglePassword('password', this)">
+                👁
+            </button>
+        </div>
+        <div class="field-error"
+             th:if="${#fields.hasErrors('password')}"
+             th:errors="*{password}">
+        </div>
 
         <button type="submit">Зарегистрироваться</button>
     </form>
@@ -109,6 +168,20 @@
         <a href="/login">Уже есть аккаунт</a>
     </div>
 </main>
+
+<script>
+    function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            button.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            button.textContent = '👁';
+        }
+    }
+</script>
 
 </body>
 </html>

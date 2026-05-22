@@ -6,6 +6,7 @@ package main.feedback.web;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -19,7 +20,10 @@ public class CreateFeedbackRequest {
     private String contactName;
 
     @NotBlank(message = "Телефон обязателен")
-    @Size(max = 30, message = "Телефон не должен быть длиннее 30 символов")
+    @Pattern(
+            regexp = "^\\+[1-9]\\d{7,14}$",
+            message = "Телефон должен быть в международном формате, например +79991234567"
+    )
     private String contactPhone;
 
     @NotBlank(message = "Email обязателен")
@@ -28,7 +32,7 @@ public class CreateFeedbackRequest {
     private String contactEmail;
 
     @NotBlank(message = "Сообщение обязательно")
-    @Size(min = 10, max = 3000, message = "Сообщение должно быть от 10 до 3000 символов")
+    @Size(max = 3000, message = "Сообщение не должно быть длиннее 3000 символов")
     private String messageText;
 
     private Long productId;

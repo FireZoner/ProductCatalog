@@ -141,6 +141,6 @@ public class FeedbackService {
         AppUser user = appUserRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
 
-        return feedbackRequestRepository.findByUserOrderByCreatedAtDesc(user);
+        return feedbackRequestRepository.findHistoryByUser(user);
     }
 }
