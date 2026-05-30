@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main.feedback.service;
 
 import main.feedback.domain.FeedbackRequest;
@@ -142,5 +138,20 @@ public class FeedbackService {
                 .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
 
         return feedbackRequestRepository.findHistoryByUser(user);
+    }
+    
+    @Transactional(readOnly = true)
+    public FeedbackRequest findFeedbackRequestById(Long id, String userEmail) {
+        AppUser user = appUserRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
+
+        FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Обращение не найдено"));
+
+        if (feedbackRequest.getUser() == null || !feedbackRequest.getUser().equals(user)) {
+            throw new IllegalArgumentException("Нет доступа к этому обращению");
+        }
+
+        return feedbackRequest;
     }
 }

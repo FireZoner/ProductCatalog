@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main.feedback.web;
 
 import jakarta.validation.Valid;
@@ -82,11 +78,10 @@ public class FeedbackController {
     }
 
     @GetMapping("/result/{id}")
-    public String showFeedbackResult(
-            @PathVariable Long id,
-            Model model
-    ) {
-        model.addAttribute("feedbackId", id);
+    public String showFeedbackResult(@PathVariable Long id, Authentication authentication, Model model) {
+        FeedbackRequest feedbackRequest =
+                feedbackService.findFeedbackRequestById(id, authentication.getName());
+        model.addAttribute("feedbackRequest", feedbackRequest);
         return "feedback/result";
     }
 

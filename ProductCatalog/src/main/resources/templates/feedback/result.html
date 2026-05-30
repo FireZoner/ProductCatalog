@@ -1,49 +1,65 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Результат обращения</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            color: #222;
-        }
-
-        main {
-            max-width: 640px;
-            margin: 80px auto;
-            background: white;
-            padding: 32px;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-
-        .button {
-            display: inline-block;
-            margin-top: 24px;
-            padding: 12px 18px;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 
-<main>
-    <h1>Обращение обработано</h1>
+<main class="main-result">
+    <h1>Результат обращения</h1>
 
-    <p>
-        Ваше обращение сохранено в системе. Результат отправки email зафиксирован.
-    </p>
+    <span
+            class="status"
+            th:classappend="${feedbackRequest.status.name() == 'PROCESSING'} ? ' status-processing' :
+                            (${feedbackRequest.status.name() == 'SENT'} ? ' status-sent' : ' status-error')"
+            th:text="${feedbackRequest.status.name() == 'PROCESSING'} ? 'Выполняется' :
+                     (${feedbackRequest.status.name() == 'SENT'} ? 'Успешно отправлено' : 'Ошибка отправки')">
+        Статус
+    </span>
 
-    <a class="button" href="/products">Вернуться в каталог</a>
+    <div class="info-box">
+        <p>
+            Обращение сохранено в системе.
+        </p>
+
+        <p th:if="${feedbackRequest.status.name() == 'SENT'}">
+            Email-уведомление успешно отправлено администратору.
+        </p>
+
+        <p th:if="${feedbackRequest.status.name() == 'PROCESSING'}">
+            Обращение находится в обработке.
+        </p>
+
+        <p th:if="${feedbackRequest.status.name() == 'ERROR'}">
+            Обращение сохранено, но при отправке email произошла ошибка.
+        </p>
+    </div>
+
+    <div class="error-box" th:if="${feedbackRequest.errorMessage != null}">
+        <strong>Описание ошибки:</strong>
+        <div th:text="${feedbackRequest.errorMessage}">
+            Ошибка отправки
+        </div>
+    </div>
+
+    <div class="actions">
+        <a class="button" href="/products">
+            Вернуться в каталог
+        </a>
+
+        <a class="button secondary" href="/feedback/history">
+            Мои обращения
+        </a>
+
+        <a class="button danger"
+           th:if="${feedbackRequest.status.name() == 'ERROR'}"
+           th:href="@{/feedback(productId=${feedbackRequest.product != null ? feedbackRequest.product.id : null})}">
+            Повторить отправку
+        </a>
+    </div>
 </main>
 
 </body>
