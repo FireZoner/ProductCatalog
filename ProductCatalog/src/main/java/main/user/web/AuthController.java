@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main.user.web;
 
 import jakarta.validation.Valid;
@@ -13,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Контроллер страниц регистрации и входа.
+ * Контроллер страниц регистрации и входа
  */
 @Controller
 public class AuthController {

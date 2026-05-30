@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main.web;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class HomeController {
+
     @GetMapping("/")
     public String showHomePage(Model model, Authentication authentication) {
+        boolean isAuthenticated = authentication != null
+                && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken);
+
         model.addAttribute("pageTitle", "Каталог товаров и обратная связь");
-        model.addAttribute("isAuthenticated", authentication != null && authentication.isAuthenticated());
+        model.addAttribute("isAuthenticated", isAuthenticated);
+
         return "index";
     }
 }

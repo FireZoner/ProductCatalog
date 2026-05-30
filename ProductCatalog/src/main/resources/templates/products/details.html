@@ -4,70 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="${product.title}">Товар</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f4f6f8;
-            color: #222;
-        }
-
-        header {
-            background: #1f2937;
-            color: white;
-            padding: 24px 48px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        main {
-            max-width: 1000px;
-            margin: 40px auto;
-            background: white;
-            padding: 32px;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-        }
-
-        a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-
-        .header-link {
-            color: white;
-        }
-
-        .product-layout {
-            display: grid;
-            grid-template-columns: 420px 1fr;
-            gap: 32px;
-        }
-
-        .product-image {
-            width: 100%;
-            border-radius: 12px;
-        }
-
-        .price {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 24px 0;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 12px 18px;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            font-weight: bold;
-        }
-
-        .button.secondary {
-            background: #4b5563;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 
@@ -76,7 +13,7 @@
     <a class="header-link" href="/products">Назад к каталогу</a>
 </header>
 
-<main>
+<main class="main-product-details">
     <section class="product-layout">
         <div>
             <img class="product-image" th:src="${product.imageUrl}" th:alt="${product.title}">
