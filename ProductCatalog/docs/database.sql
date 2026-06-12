@@ -25,20 +25,14 @@ created_at TIMESTAMP NOT NULL
 
 CREATE TABLE feedback_requests (
 id BIGSERIAL PRIMARY KEY,
-
-```
 user_id BIGINT NOT NULL,
 product_id BIGINT,
-
 contact_name VARCHAR(150) NOT NULL,
 contact_phone VARCHAR(30) NOT NULL,
 contact_email VARCHAR(255) NOT NULL,
-
 message_text TEXT NOT NULL,
-
 status VARCHAR(30) NOT NULL,
 error_message TEXT,
-
 created_at TIMESTAMP NOT NULL,
 processed_at TIMESTAMP,
 
@@ -49,29 +43,19 @@ CONSTRAINT fk_feedback_user
 CONSTRAINT fk_feedback_product
     FOREIGN KEY (product_id)
     REFERENCES products(id)
-```
-
 );
 
 CREATE TABLE email_notification_logs (
 id BIGSERIAL PRIMARY KEY,
-
-```
 feedback_request_id BIGINT NOT NULL,
-
 recipient_email VARCHAR(255) NOT NULL,
 subject VARCHAR(255) NOT NULL,
-
 delivery_status VARCHAR(30) NOT NULL,
 error_message TEXT,
-
 created_at TIMESTAMP NOT NULL,
-
 CONSTRAINT fk_email_log_feedback
     FOREIGN KEY (feedback_request_id)
     REFERENCES feedback_requests(id)
-```
-
 );
 
 CREATE INDEX idx_app_users_email
