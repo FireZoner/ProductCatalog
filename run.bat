@@ -4,6 +4,6 @@ echo ============================
 echo ProductCatalog Application
 echo ============================
 
-java -jar target\ProductCatalog-1.0-SNAPSHOT.jar
+java -jar ProductCatalog\target\ProductCatalog-1.0-SNAPSHOT.jar
 
 pause
