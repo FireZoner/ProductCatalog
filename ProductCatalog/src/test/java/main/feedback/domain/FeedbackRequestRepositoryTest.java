@@ -57,12 +57,21 @@ class FeedbackRequestRepositoryTest {
 
     @Test
     void shouldFindFeedbackRequestsByStatus() {
+        AppUser user = new AppUser(
+                "ivan@example.com",
+                "password-hash",
+                "Иван",
+                UserRole.USER
+        );
+
+        appUserRepository.save(user);
+
         FeedbackRequest request = new FeedbackRequest(
+                user,
                 null,
-                null,
-                "Степан",
+                "Иван",
                 "+79999999999",
-                "stepan@example.com",
+                "ivan@example.com",
                 "Хочу уточнить детали товара"
         );
 

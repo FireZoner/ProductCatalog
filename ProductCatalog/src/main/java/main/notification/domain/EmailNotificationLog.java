@@ -42,16 +42,10 @@ public class EmailNotificationLog {
     private LocalDateTime createdAt;
 
     protected EmailNotificationLog() {
-        // Конструктор нужен JPA
     }
 
-    public EmailNotificationLog(
-            FeedbackRequest feedbackRequest,
-            String recipientEmail,
-            String subject,
-            EmailDeliveryStatus deliveryStatus,
-            String errorMessage
-    ) {
+    public EmailNotificationLog(FeedbackRequest feedbackRequest, String recipientEmail, String subject,
+            EmailDeliveryStatus deliveryStatus, String errorMessage) {
         this.feedbackRequest = feedbackRequest;
         this.recipientEmail = recipientEmail;
         this.subject = subject;
@@ -60,33 +54,14 @@ public class EmailNotificationLog {
         this.createdAt = LocalDateTime.now();
     }
 
-    public static EmailNotificationLog success(
-            FeedbackRequest feedbackRequest,
-            String recipientEmail,
-            String subject
-    ) {
-        return new EmailNotificationLog(
-                feedbackRequest,
-                recipientEmail,
-                subject,
-                EmailDeliveryStatus.SUCCESS,
-                null
-        );
+    public static EmailNotificationLog success(FeedbackRequest feedbackRequest, String recipientEmail, String subject) {
+        return new EmailNotificationLog(feedbackRequest, recipientEmail, subject, EmailDeliveryStatus.SUCCESS, null);
     }
 
-    public static EmailNotificationLog error(
-            FeedbackRequest feedbackRequest,
-            String recipientEmail,
-            String subject,
-            String errorMessage
-    ) {
-        return new EmailNotificationLog(
-                feedbackRequest,
-                recipientEmail,
-                subject,
-                EmailDeliveryStatus.ERROR,
-                errorMessage
-        );
+    public static EmailNotificationLog error(FeedbackRequest feedbackRequest, String recipientEmail, String subject,
+            String errorMessage) {
+        return new EmailNotificationLog(feedbackRequest, recipientEmail, subject, EmailDeliveryStatus.ERROR,
+                errorMessage);
     }
 
     public Long getId() {

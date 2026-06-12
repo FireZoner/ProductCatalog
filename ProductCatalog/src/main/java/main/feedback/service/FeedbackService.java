@@ -94,6 +94,41 @@ public class FeedbackService {
 
         return feedbackRequestRepository.save(feedbackRequest);
     }
+    
+    @Transactional
+    public FeedbackRequest retryFeedbackSending(Long id, String userEmail) {
+        FeedbackRequest feedbackRequest = findFeedbackRequestById(id, userEmail);
+
+        if (!feedbackRequest.isError()) {
+            throw new IllegalStateException("Повторная отправка доступна только для обращений со статусом ERROR");
+        }
+
+        String subject = buildSubject(feedbackRequest);
+        String body = buildBody(feedbackRequest);
+
+        try {
+            emailSender.send(adminEmail, subject, body);
+
+            feedbackRequest.markAsSent();
+
+            emailNotificationLogRepository.save(
+                    EmailNotificationLog.success(feedbackRequest, adminEmail, subject)
+            );
+        } catch (Exception exception) {
+            feedbackRequest.markAsError(exception.getMessage());
+
+            emailNotificationLogRepository.save(
+                    EmailNotificationLog.error(
+                            feedbackRequest,
+                            adminEmail,
+                            subject,
+                            exception.getMessage()
+                    )
+            );
+        }
+
+        return feedbackRequestRepository.save(feedbackRequest);
+    }
 
     private String buildSubject(FeedbackRequest feedbackRequest) {
         if (feedbackRequest.getProduct() == null) {

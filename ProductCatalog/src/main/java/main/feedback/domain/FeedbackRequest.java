@@ -19,19 +19,10 @@ public class FeedbackRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * Пользователь может быть авторизован.
-     * Но обращение всё равно хранит контактные данные отдельно,
-     * потому что пользователь может указать другой телефон или email.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private AppUser user;
 
-    /**
-     * Обращение может быть связано с товаром,
-     * но может быть и общим вопросом.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -62,17 +53,10 @@ public class FeedbackRequest {
     private LocalDateTime processedAt;
 
     protected FeedbackRequest() {
-        // Конструктор нужен JPA
     }
 
-    public FeedbackRequest(
-            AppUser user,
-            Product product,
-            String contactName,
-            String contactPhone,
-            String contactEmail,
-            String messageText
-    ) {
+    public FeedbackRequest(AppUser user, Product product, String contactName, String contactPhone,
+            String contactEmail, String messageText) {
         this.user = user;
         this.product = product;
         this.contactName = contactName;

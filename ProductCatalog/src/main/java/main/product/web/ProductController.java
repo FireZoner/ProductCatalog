@@ -24,10 +24,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public String showProducts(
-            @RequestParam(required = false) String query,
-            Model model
-    ) {
+    public String showProducts(@RequestParam(required = false) String query, Model model) {
         List<Product> products = productService.findProducts(query);
 
         model.addAttribute("products", products);
@@ -37,10 +34,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public String showProductDetails(
-            @PathVariable Long id,
-            Model model
-    ) {
+    public String showProductDetails(@PathVariable Long id, Model model) {
         Product product = productService.findProductById(id);
         model.addAttribute("product", product);
 

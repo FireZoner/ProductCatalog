@@ -54,11 +54,19 @@
             Мои обращения
         </a>
 
-        <a class="button danger"
-           th:if="${feedbackRequest.status.name() == 'ERROR'}"
-           th:href="@{/feedback(productId=${feedbackRequest.product != null ? feedbackRequest.product.id : null})}">
-            Повторить отправку
-        </a>
+        <form th:if="${feedbackRequest.status.name() == 'ERROR'}"
+            method="post"
+            th:action="@{/feedback/{id}/retry(id=${feedbackRequest.id})}"
+            style="display:inline">
+
+          <input type="hidden"
+                 th:name="${_csrf.parameterName}"
+                 th:value="${_csrf.token}">
+
+          <button class="button danger" type="submit">
+              Повторить отправку
+          </button>
+      </form>
     </div>
 </main>
 

@@ -76,6 +76,17 @@ public class FeedbackController {
 
         return "redirect:/feedback/result/" + savedRequest.getId();
     }
+    
+    @PostMapping("/{id}/retry")
+    public String retryFeedbackSending(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        FeedbackRequest feedbackRequest =
+                feedbackService.retryFeedbackSending(id, authentication.getName());
+
+        return "redirect:/feedback/result/" + feedbackRequest.getId();
+    }
 
     @GetMapping("/result/{id}")
     public String showFeedbackResult(@PathVariable Long id, Authentication authentication, Model model) {

@@ -39,7 +39,6 @@ public class Product {
     private LocalDateTime createdAt;
 
     protected Product() {
-        // Конструктор нужен JPA
     }
 
     public Product(String title, String description, BigDecimal price, String imageUrl, boolean available) {

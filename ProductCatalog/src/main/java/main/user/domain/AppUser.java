@@ -34,7 +34,6 @@ public class AppUser {
     private LocalDateTime createdAt;
 
     protected AppUser() {
-        // Конструктор нужен JPA
     }
 
     public AppUser(String email, String passwordHash, String fullName, UserRole role) {
