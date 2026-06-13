@@ -65,34 +65,8 @@ public class FeedbackService {
                 request.getContactEmail(),
                 request.getMessageText()
         );
-
         feedbackRequestRepository.save(feedbackRequest);
-
-        String subject = buildSubject(feedbackRequest);
-        String body = buildBody(feedbackRequest);
-
-        try {
-            emailSender.send(adminEmail, subject, body);
-
-            feedbackRequest.markAsSent();
-
-            emailNotificationLogRepository.save(
-                    EmailNotificationLog.success(feedbackRequest, adminEmail, subject)
-            );
-        } catch (Exception exception) {
-            feedbackRequest.markAsError(exception.getMessage());
-
-            emailNotificationLogRepository.save(
-                    EmailNotificationLog.error(
-                            feedbackRequest,
-                            adminEmail,
-                            subject,
-                            exception.getMessage()
-                    )
-            );
-        }
-
-        return feedbackRequestRepository.save(feedbackRequest);
+        return sendFeedbackEmail(feedbackRequest);
     }
     
     @Transactional
@@ -102,7 +76,10 @@ public class FeedbackService {
         if (!feedbackRequest.isError()) {
             throw new IllegalStateException("Повторная отправка доступна только для обращений со статусом ERROR");
         }
-
+        return sendFeedbackEmail(feedbackRequest);
+    }
+    
+    private FeedbackRequest sendFeedbackEmail(FeedbackRequest feedbackRequest) {
         String subject = buildSubject(feedbackRequest);
         String body = buildBody(feedbackRequest);
 
